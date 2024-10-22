@@ -14,9 +14,13 @@ const register = async (req, res) => {
         const userId = await accessService.register(req.body);
         res.status(HTTP_STATUS_CODE.CREATED).send({ message: 'User registered successfully', userId });
     } catch (error) {
-        console.error('Registration error:', error);
+        if (error.message === 'Username or Email already existed') {
+            return res.status(HTTP_STATUS_CODE.BAD_REQUEST).send({
+                error: error.message,
+            });
+        }
         res.status(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR).send({
-            error: error.message || 'An error occurred during registration.',
+            error: new Error(error).message,
         });
     }
 };
