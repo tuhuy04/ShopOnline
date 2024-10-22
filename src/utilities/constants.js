@@ -11,3 +11,4 @@ export const DB_COLLECTION_NAME = {
   COLUMNS: "columns",
   CARDS: "cards"
 };
+
