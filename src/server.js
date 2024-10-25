@@ -5,10 +5,12 @@ import helmet from "helmet"; // Bảo mật
 import morgan from "morgan"; // Log requests
 import compression from "compression"; // Nén requests
 import { pool } from './configs/database.js';  // Kết nối DB
+import cors from 'cors';
 
 const app = express();
 
 // Middleware
+app.use(cors()); 
 app.use(morgan('dev')); // Log HTTP
 app.use(helmet()); // Bảo mật
 app.use(compression()); // Nén request
