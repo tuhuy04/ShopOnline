@@ -1,6 +1,7 @@
 import express from 'express';
 import { productsController } from '../../controllers/products.controller.js';
 import authenticateJWT from '../../middlewares/authenticateJWT.js';
+// import {} from ''
 
 const router = express.Router();
 

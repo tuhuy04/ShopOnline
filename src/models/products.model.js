@@ -2,27 +2,27 @@
 
 import { pool } from '../configs/database.js';
 
-const createProduct = async ({ name, price, description, stock }) => {
+const createProduct = async ({ name, price, description, stock, image }) => {
     const connection = await pool.getConnection();
     try {
         const [result] = await connection.execute(
-            'INSERT INTO products (name, price, description, stock) VALUES (?, ?, ?, ?)',
-            [name, price, description, stock]
+            'INSERT INTO products (name, price, description, stock, image) VALUES (?, ?, ?, ?, ?)',
+            [name, price, description, stock, image]
         );
-        return result.insertId; 
+        return result.insertId;
     } finally {
         connection.release();
     }
 };
 
-const updateProduct = async (id, { name, price, description, stock }) => {
+const updateProduct = async (id, { name, price, description, stock, image }) => {
     const connection = await pool.getConnection();
     try {
         const [result] = await connection.execute(
-            'UPDATE products SET name = ?, price = ?, description = ?, stock = ? WHERE id = ?',
-            [name, price, description, stock, id]
+            'UPDATE products SET name = ?, price = ?, description = ?, stock = ?, image = ? WHERE id = ?',
+            [name, price, description, stock, image, id]
         );
-        return result.affectedRows; 
+        return result.affectedRows;
     } finally {
         connection.release();
     }

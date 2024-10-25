@@ -6,6 +6,7 @@ const createProduct = async (req, res) => {
     try {
         const { name, price, description, stock } = req.body;
         const existingProduct = await productsModel.findProduct({ name, price, description });
+        const image = req.file ? req.file.path : null;
 
         if (existingProduct) {
             await productsModel.updateStock(existingProduct.id, stock);
@@ -14,7 +15,7 @@ const createProduct = async (req, res) => {
                 productId: existingProduct.id,
             });
         } else {
-            const productId = await productsModel.createProduct(req.body);
+            const productId = await productsModel.createProduct({ name, price, description, stock, image });
             return res.status(HTTP_STATUS_CODE.CREATED).send({ message: 'Product created successfully', productId });
         }
     } catch (error) {
@@ -26,6 +27,7 @@ const updateProduct = async (req, res) => {
     try {
         const { id } = req.params;
         const { name, price, description, stock } = req.body;
+        const image = req.file ? req.file.path : undefined;
 
         const existingProduct = await productsModel.getProductById(id);
         if (!existingProduct) {
@@ -37,6 +39,7 @@ const updateProduct = async (req, res) => {
             price: price !== undefined ? price : existingProduct.price,
             description: description !== undefined ? description : existingProduct.description,
             stock: stock !== undefined ? stock : existingProduct.stock,
+            image: image !== undefined ? image : existingProduct.image,
         };
 
         await productsModel.updateProduct(id, updatedData);

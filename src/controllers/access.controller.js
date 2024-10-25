@@ -12,7 +12,10 @@ dotenv.config();
 const register = async (req, res) => {
     try {
         const userId = await accessService.register(req.body);
-        res.status(HTTP_STATUS_CODE.CREATED).send({ message: 'User registered successfully', userId });
+        res.status(HTTP_STATUS_CODE.CREATED).send({ 
+            message: 'User registered successfully',
+            status: 201,
+            userId });
     } catch (error) {
         if (error.message === 'Username or Email already existed') {
             return res.status(HTTP_STATUS_CODE.BAD_REQUEST).send({
