@@ -62,7 +62,7 @@ const getByEmail = async (email) => {
             'SELECT * FROM users WHERE email = ?',
             [email]
         );
-        return rows[0]; // Return the first user found
+        return rows[0]; 
     } finally {
         connection.release();
     }
@@ -73,6 +73,6 @@ export const usersModel = {
     update,
     deleteById,
     getById,
-    getByEmail,  // Add this line
+    getByEmail,
 };
 

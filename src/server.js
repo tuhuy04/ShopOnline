@@ -5,6 +5,9 @@ import helmet from "helmet"; // Bảo mật
 import morgan from "morgan"; // Log requests
 import compression from "compression"; // Nén requests
 import { pool } from './configs/database.js';  // Kết nối DB
+import cors from 'cors'; // CORS
+
+
 
 const app = express();
 
@@ -14,7 +17,7 @@ app.use(helmet()); // Bảo mật
 app.use(compression()); // Nén request
 app.use(express.json()); // Parse JSON body
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded body
-
+app.use(cors()); // CORS
 // Kết nối Database
 
 // Routes
